@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [dev, main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'  # Adaptez à votre version
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test  # Adaptez si vous avez des tests réels (ex. Jest)
+
+    - name: Build application
+      run: npm run build  # Si applicable (ex. pour React), sinon ajoutez un placeholder
+
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifact
+        path: .  # Adaptez au dossier de build (ex. dist/)
+
+    - name: Display build logs
+      run: echo "Build completed successfully"  # Ajoutez des logs personnalisé
